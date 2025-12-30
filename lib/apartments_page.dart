@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'details_page.dart';
 import 'add_apartment_page.dart';
 import 'filter_page.dart';
+import 'notifications_page.dart'; // ← أضفنا الاستيراد
 
 class ApartmentsPage extends StatefulWidget {
   @override
@@ -43,6 +44,18 @@ class _ApartmentsPageState extends State<ApartmentsPage> {
         title: Text("الشقق المتاحة"),
         centerTitle: true,
         actions: [
+          // ← زر الإشعارات
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => NotificationsPage()),
+              );
+            },
+          ),
+
+          // ← زر الفلترة
           IconButton(
             icon: Icon(Icons.filter_list),
             onPressed: () async {
@@ -55,7 +68,7 @@ class _ApartmentsPageState extends State<ApartmentsPage> {
                 print("Filters: $filters");
               }
             },
-          )
+          ),
         ],
       ),
       body: ListView.builder(

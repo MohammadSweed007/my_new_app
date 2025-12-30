@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'rating_page.dart'; // تأكد تضيف الاستيراد
 
 class DetailsPage extends StatelessWidget {
   final Map<String, dynamic> apt;
@@ -27,6 +28,7 @@ class DetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // عنوان الشقة
                   Text(
                     apt["title"],
                     style: TextStyle(
@@ -34,7 +36,10 @@ class DetailsPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
                   SizedBox(height: 10),
+
+                  // السعر
                   Text(
                     "السعر: ${apt["price"]}",
                     style: TextStyle(
@@ -43,14 +48,20 @@ class DetailsPage extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+
                   SizedBox(height: 10),
+
+                  // عدد الغرف
                   Text(
                     "عدد الغرف: ${apt["rooms"]}",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
+
                   SizedBox(height: 20),
+
+                  // الوصف
                   Text(
                     apt["description"],
                     style: TextStyle(
@@ -58,7 +69,10 @@ class DetailsPage extends StatelessWidget {
                       height: 1.5,
                     ),
                   ),
+
                   SizedBox(height: 25),
+
+                  // عنوان صور الموقع
                   Text(
                     "صور الموقع:",
                     style: TextStyle(
@@ -66,7 +80,10 @@ class DetailsPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
                   SizedBox(height: 12),
+
+                  // صور الموقع
                   SizedBox(
                     height: 120,
                     child: ListView(
@@ -86,7 +103,31 @@ class DetailsPage extends StatelessWidget {
                         );
                       }).toList(),
                     ),
-                  )
+                  ),
+
+                  SizedBox(height: 30),
+
+                  // زر تقييم الشقة
+                  ElevatedButton(
+                    onPressed: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              RatingPage(apartmentId: apt["id"] ?? 0),
+                        ),
+                      );
+
+                      if (result != null) {
+                        print("Rating Data: $result");
+                        // هون الفرونت بيرسل البيانات للـ Laravel
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    child: Text("تقييم الشقة"),
+                  ),
                 ],
               ),
             )
